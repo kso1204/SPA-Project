@@ -2,15 +2,15 @@
     <div>
         <div class="content">
 			<div class="container-fluid">
-				
+
 				<!--~~~~~~~ TABLE ONE ~~~~~~~~~-->
 				<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
-					<p class="_title0">Role Management 
+					<p class="_title0">Role Management
 
                     <Select v-model="data.id"  placeholder="select admin type" style="width:300px" @on-change="changeAdmin">
-                                    
+
                                     <Option v-for="(r,i) in roles" :key="i" :value="r.id" :v-if="roles.length">{{r.roleName}}</Option>
-                                   
+
                                 </Select>
                                  </p>
 					<div class="_overflow _table_div">
@@ -45,9 +45,9 @@
 
 				</div>
 				 <Page :total="100" />
-				
 
-       
+
+
 			</div>
 		</div>
     </div>
@@ -59,11 +59,11 @@ import deleteModal from '../components/deleteModal'
 import {mapGetters} from 'vuex'
 
 	export default {
-		
+
 	data(){
 		return {
-            
-            
+
+
 			data : {
 				roleName: '',
 				id: null,
@@ -75,120 +75,141 @@ import {mapGetters} from 'vuex'
 
             resources:[
                 {
-                    resourceName : 'tags', 
+                    resourceName : 'tags',
                     read: false,
                     write: false,
                     update: false,
-                    delete: false, 
-                    name: 'tags', 
-                },
-                
-                {
-                    resourceName : 'category', 
-                    read: false,
-                    write: false,
-                    update: false,
-                    delete: false, 
-                    name: 'category', 
-                },
-                
-                {
-                    resourceName : 'adminusers', 
-                    read: false,
-                    write: false,
-                    update: false,
-                    delete: false, 
-                    name: 'adminusers', 
-                },
-                
-                {
-                    resourceName : 'role', 
-                    read: false,
-                    write: false,
-                    update: false,
-                    delete: false, 
-                    name: 'role', 
-                },
-                
-                {
-                    resourceName : 'assignRole', 
-                    read: false,
-                    write: false,
-                    update: false,
-                    delete: false, 
-                    name: 'assignRole', 
+                    delete: false,
+                    name: 'tags',
                 },
 
-                
                 {
-                    resourceName : 'home', 
+                    resourceName : 'category',
                     read: false,
                     write: false,
                     update: false,
-                    delete: false, 
-                    name: '/', 
+                    delete: false,
+                    name: 'category',
+                },
+
+                {
+                    resourceName : 'adminusers',
+                    read: false,
+                    write: false,
+                    update: false,
+                    delete: false,
+                    name: 'adminusers',
+                },
+
+                {
+                    resourceName : 'role',
+                    read: false,
+                    write: false,
+                    update: false,
+                    delete: false,
+                    name: 'role',
+                },
+
+                {
+                    resourceName : 'assignRole',
+                    read: false,
+                    write: false,
+                    update: false,
+                    delete: false,
+                    name: 'assignRole',
+                },
+
+
+                {
+                    resourceName : 'home',
+                    read: false,
+                    write: false,
+                    update: false,
+                    delete: false,
+                    name: '/',
+                },
+
+
+                {
+                    resourceName : 'createBlog',
+                    read: false,
+                    write: false,
+                    update: false,
+                    delete: false,
+                    name: 'createBlog',
                 },
 
             ],
 
             defaultResourcesPermission:[
                 {
-                    resourceName : 'tags', 
+                    resourceName : 'tags',
                     read: false,
                     write: false,
                     update: false,
-                    delete: false, 
-                    name: 'tags', 
-                },
-                
-                {
-                    resourceName : 'category', 
-                    read: false,
-                    write: false,
-                    update: false,
-                    delete: false, 
-                    name: 'category', 
-                },
-                
-                {
-                    resourceName : 'adminusers', 
-                    read: false,
-                    write: false,
-                    update: false,
-                    delete: false, 
-                    name: 'adminusers', 
-                },
-                
-                {
-                    resourceName : 'role', 
-                    read: false,
-                    write: false,
-                    update: false,
-                    delete: false, 
-                    name: 'role', 
-                },
-                
-                {
-                    resourceName : 'assignRole', 
-                    read: false,
-                    write: false,
-                    update: false,
-                    delete: false, 
-                    name: 'assignRole', 
+                    delete: false,
+                    name: 'tags',
                 },
 
-                
                 {
-                    resourceName : 'home', 
+                    resourceName : 'category',
                     read: false,
                     write: false,
                     update: false,
-                    delete: false, 
-                    name: '/', 
+                    delete: false,
+                    name: 'category',
                 },
+
+                {
+                    resourceName : 'adminusers',
+                    read: false,
+                    write: false,
+                    update: false,
+                    delete: false,
+                    name: 'adminusers',
+                },
+
+                {
+                    resourceName : 'role',
+                    read: false,
+                    write: false,
+                    update: false,
+                    delete: false,
+                    name: 'role',
+                },
+
+                {
+                    resourceName : 'assignRole',
+                    read: false,
+                    write: false,
+                    update: false,
+                    delete: false,
+                    name: 'assignRole',
+                },
+
+
+                {
+                    resourceName : 'home',
+                    read: false,
+                    write: false,
+                    update: false,
+                    delete: false,
+                    name: '/',
+                },
+
+
+                {
+                    resourceName : 'createBlog',
+                    read: false,
+                    write: false,
+                    update: false,
+                    delete: false,
+                    name: 'createBlog',
+                },
+
 
             ],
-			
+
 		}
 	},
 
@@ -216,16 +237,16 @@ import {mapGetters} from 'vuex'
                  this.resources = JSON.parse(permission)
             }
         },
-		
 
-		
+
+
 	},
 
 
         async created(){
             console.log(this.$route)
             const res = await this.callApi('get', 'app/get_roles')
-            
+
             if(res.status==200){
                     this.roles=res.data;
                     if(res.data.length){
@@ -234,6 +255,8 @@ import {mapGetters} from 'vuex'
                             this.resources = JSON.parse(res.data[0].permission)
                         }
                     }
+
+                this.resources = this.defaultResourcesPermission
             }else{
                 this.swr()
             }

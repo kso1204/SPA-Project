@@ -17,12 +17,14 @@ class AdminController extends Controller
 {
     //
     public function index(Request $request){
-        
-        
+
+        return view('welcome');
+
+
         if(!Auth::check() && $request->path() !='login'){
             return redirect('/login');
         }
-        
+
         if(!Auth::check() && $request->path() =='login'){
             return view('welcome');
         }
@@ -66,7 +68,7 @@ class AdminController extends Controller
     }
 
     public function logout(){
-        
+
         Auth::logout();
         return redirect('/login');
     }
@@ -87,7 +89,7 @@ class AdminController extends Controller
         return Tag::orderBy('id','desc')->get();
     }
 
-    
+
     public function editTag(Request $request)
     {
         $this->validate($request, [
@@ -98,8 +100,8 @@ class AdminController extends Controller
             'tagName' => $request->tagName
         ]);
     }
-    
-    
+
+
 
     public function deleteTag(Request $request)
     {
@@ -107,32 +109,32 @@ class AdminController extends Controller
     }
 
     public function upload(Request $request)
-    {  
-        //return $picName = time().'.'.$request->file->extension(); 
-        
+    {
+        //return $picName = time().'.'.$request->file->extension();
+
         $this->validate($request, [
             'file' => 'required|mimes:jpeg,jpg,png'
         ]);
 
 
-        $picName = time().'.'.$request->file->extension(); 
+        $picName = time().'.'.$request->file->extension();
         $request->file->move(public_path('uploads'), $picName);
         return $picName;
-           
-       
+
+
     }
 
 
     public function uploadEditorImage(Request $request)
     {
-        
+
         $this->validate($request, [
             'image' => 'required|mimes:jpeg,jpg,png',
         ]);
 
         $picName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('uploads'), $picName);
-        
+
         return response()->json([
             'success' => 1,
             'file' => [
@@ -163,7 +165,7 @@ class AdminController extends Controller
         return ;
     }
 
-    
+
     public function addCategory(Request $request)
     {
         $this->validate($request, [
@@ -176,8 +178,8 @@ class AdminController extends Controller
             'iconImage' => $request->iconImage
         ]);
     }
-    
-    
+
+
     public function getCategory(){
         return Category::orderBy('id','desc')->get();
     }
@@ -195,7 +197,7 @@ class AdminController extends Controller
         ]);
     }
 
-    
+
 
     public function deleteCategory(Request $request)
     {
@@ -203,7 +205,7 @@ class AdminController extends Controller
         return Category::where('id', $request->id)->delete();
     }
 
-    
+
     public function createUser(Request $request)
     {
         $this->validate($request, [
@@ -212,7 +214,7 @@ class AdminController extends Controller
             'password' => 'bail|required|min:6',
             'role_id' => 'required',
         ]);
-        
+
         $password = bcrypt($request->password);
 
         $user = User::create([
@@ -225,8 +227,8 @@ class AdminController extends Controller
         return $user;
     }
 
-    
-    
+
+
     public function editUsers(Request $request)
     {
         $this->validate($request, [
@@ -235,14 +237,14 @@ class AdminController extends Controller
             //이메일이 같은데 unique면 원래 한명이자나
             //근데 똑같은애가 와도 unique 되니까
             // 이 부분을 해결하기 위해서는
-            
+
             'email' => "bail|required|email|unique:users,email,$request->id",
             //요론식으로 쓰는거임 그니까 $request->id는 1이고 만약에 수정하려는 id가 1이면 ok 뜰거고
             // 수정하려는 id가 2면 저건 error날거임
             'password' => 'min:6',
             'userType' => 'required',
         ]);
-        
+
 
         $data = [
             'fullName' => $request->fullName,
@@ -258,14 +260,14 @@ class AdminController extends Controller
         $user = User::where('id',$request->id)->update($data);
         return $user;
     }
-    
+
     public function getUsers(){
         //return User::where('userType', '!=', 'User')->get();
         return User::get();
     }
 
     public function adminLogin(Request $request){
-        
+
         $this->validate($request, [
             'email' => 'bail|required|email',
             'password' => 'bail|required|min:6',
@@ -274,14 +276,14 @@ class AdminController extends Controller
         if(Auth::attempt(['email'=>$request->email, 'password'=>$request->password ])){
 
             $user = Auth::user();
-
+/*
             if ($user->role->isAdmin==0){
                 Auth::logout();
                 return response()->json([
                     'msg' => 'incorrent login details',
-                ], 401);    
+                ], 401);
             }
-
+ */
             return response()->json([
                 'msg' => 'You ar logged in',
                 'user' => $user,
@@ -295,7 +297,7 @@ class AdminController extends Controller
 
     }
 
-    
+
     public function addRole(Request $request)
     {
         $this->validate($request, [
@@ -303,14 +305,14 @@ class AdminController extends Controller
           //  'permission' => 'required'
         ]);
 
-        
+
 
         return Role::create([
             'roleName' => $request->roleName,
         ]);
     }
 
-    
+
     public function getRole(){
         return Role::orderBy('id','desc')->get();
     }
@@ -322,7 +324,7 @@ class AdminController extends Controller
           //  'permission' => 'required'
         ]);
 
-        
+
 
         $data = [
             'roleName' => $request->roleName,
@@ -344,7 +346,7 @@ class AdminController extends Controller
         return Role::where('id',$request->id)->update([
             'permission' => $request->permission,
         ]);
-        
+
     }
 
     public function slug()
@@ -385,7 +387,7 @@ class AdminController extends Controller
             'metaDescription' => $request->metaDescription,
             'jsonData' => $request->jsonData,
         ]);
-        
+
         DB::beginTransaction();
         try {
             $blog = Blog::create([

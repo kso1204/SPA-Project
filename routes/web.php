@@ -17,7 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 //Route::post('/create_tag', 'TestController@test');
 
-Route::prefix('app')->middleware(AdminCheck::class)->group(function(){
+
+Route::prefix('app')->group(function(){
+
+//Route::prefix('app')->middleware(AdminCheck::class)->group(function(){
 
     Route::post('/create_tag', 'AdminController@addTag');
     Route::get('/get_tags', 'AdminController@getTag');
@@ -25,13 +28,13 @@ Route::prefix('app')->middleware(AdminCheck::class)->group(function(){
     Route::post('/delete_tag', 'AdminController@deleteTag');
     Route::post('/upload', 'AdminController@upload');
     Route::post('/delete_image', 'AdminController@deleteImage');
-    
+
     Route::post('/create_category', 'AdminController@addCategory');
     Route::get('/get_category', 'AdminController@getCategory');
     Route::post('/edit_category', 'AdminController@editCategory');
     Route::post('/delete_category', 'AdminController@deleteCategory');
-    
-    
+
+
     Route::post('/create_user', 'AdminController@createUser');
     Route::get('/get_users', 'AdminController@getUsers');
     Route::post('/edit_users', 'AdminController@editUsers');
@@ -45,7 +48,7 @@ Route::prefix('app')->middleware(AdminCheck::class)->group(function(){
 
     Route::post('/assign_roles', 'AdminController@assignRole');
 
-    
+
     Route::post('create-blog', 'AdminController@createBlog');
 
 });
@@ -60,7 +63,7 @@ Route::get('/logout','AdminController@logout');
 Route::get('/','AdminController@index');
 Route::get('{slug}','AdminController@index');
 
-/* 
+/*
 Route::get('/', function () {
     return view('welcome');
 });

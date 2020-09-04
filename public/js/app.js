@@ -2843,6 +2843,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         update: false,
         "delete": false,
         name: '/'
+      }, {
+        resourceName: 'createBlog',
+        read: false,
+        write: false,
+        update: false,
+        "delete": false,
+        name: 'createBlog'
       }],
       defaultResourcesPermission: [{
         resourceName: 'tags',
@@ -2886,6 +2893,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         update: false,
         "delete": false,
         name: '/'
+      }, {
+        resourceName: 'createBlog',
+        read: false,
+        write: false,
+        update: false,
+        "delete": false,
+        name: 'createBlog'
       }]
     };
   },
@@ -2971,6 +2985,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     _this3.resources = JSON.parse(res.data[0].permission);
                   }
                 }
+
+                _this3.resources = _this3.defaultResourcesPermission;
               } else {
                 _this3.swr();
               }
@@ -71432,7 +71448,7 @@ var render = function() {
                 "p",
                 { staticClass: "_title0" },
                 [
-                  _vm._v("Role Management \n\n                    "),
+                  _vm._v("Role Management\n\n                    "),
                   _c(
                     "Select",
                     {
@@ -91869,8 +91885,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/spa/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/spa/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/SPA-Project/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/SPA-Project/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
