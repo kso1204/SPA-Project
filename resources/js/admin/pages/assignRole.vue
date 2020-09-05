@@ -139,6 +139,16 @@ import {mapGetters} from 'vuex'
                     name: 'createBlog',
                 },
 
+
+                {
+                    resourceName : 'Blogs',
+                    read: false,
+                    write: false,
+                    update: false,
+                    delete: false,
+                    name: 'blogs',
+                },
+
             ],
 
             defaultResourcesPermission:[
@@ -205,6 +215,15 @@ import {mapGetters} from 'vuex'
                     update: false,
                     delete: false,
                     name: 'createBlog',
+                },
+
+                {
+                    resourceName : 'Blogs',
+                    read: false,
+                    write: false,
+                    update: false,
+                    delete: false,
+                    name: 'blogs',
                 },
 
 
