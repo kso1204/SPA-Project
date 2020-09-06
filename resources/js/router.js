@@ -18,6 +18,7 @@ import assignRole from './admin/pages/assignRole'
 import createBlog from './admin/pages/createBlog'
 import blogs from './admin/pages/blogs'
 import editBlog from './admin/pages/editBlog'
+import notfound from './admin/pages/notfound'
 
 
 import usecom from './vuex/usecom'
@@ -112,9 +113,14 @@ const routes = [
 
     },
     {
-        path: "/editblog/:id",
+        path: "/editBlog/:id",
         component: editBlog,
         name: 'editBlog'
+    },
+    {
+        path: "*",
+        component: notfound,
+        name: 'notfound'
     },
 
 ]

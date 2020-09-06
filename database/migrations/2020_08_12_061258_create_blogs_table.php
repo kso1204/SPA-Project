@@ -17,10 +17,11 @@ class CreateBlogsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('post');
+            $table->text('jsonData');
             $table->string('post_excerpt');
             $table->string('slug')->unique();
             $table->string('user_id');
-            $table->string('feautredImage');
+            $table->string('feautredImage')->nullable();
             $table->string('metaDescription');
             $table->integer('views')->default(0);
             $table->timestamps();

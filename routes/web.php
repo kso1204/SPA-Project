@@ -50,8 +50,10 @@ Route::prefix('app')->group(function(){
 
 
     Route::post('create-blog', 'AdminController@createBlog');
+    Route::post('update-blog/{id}', 'AdminController@updateBlog');
     Route::get('blogsdata', 'AdminController@blogdata');
     Route::post('/delete_blog', 'AdminController@deleteBlog');
+    Route::get('/blog_single/{id}', 'AdminController@singleBlogItem');
 
 });
 
@@ -63,7 +65,7 @@ Route::get('slug','AdminController@slug');
 
 Route::get('/logout','AdminController@logout');
 Route::get('/','AdminController@index');
-Route::get('{slug}','AdminController@index');
+Route::any('{slug}', 'AdminController@index')->where('slug', '[\/\w\.-]*');
 
 /*
 Route::get('/', function () {

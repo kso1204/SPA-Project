@@ -5,7 +5,7 @@
 
 				<!--~~~~~~~ TABLE ONE ~~~~~~~~~-->
 				<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
-					<p class="_title0">Create blog</p>
+					<p class="_title0">Update blog</p>
 					<div class="_input_field">
 						 <Input type="text" v-model="data.title" placeholder="Title" />
 					 </div>
@@ -92,9 +92,10 @@ export default {
             if(!this.data.tag_id.length) return this.e('Tag is required')
             if(!this.data.category_id.length) return this.e('Category is required')
 			this.isCreating = true
-			const res = await this.callApi('post', 'app/create-blog', this.data)
+
+			const res = await this.callApi('post', `/app/update-blog/${this.$route.params.id}`, this.data)
 			if(res.status===200){
-				this.s('Blog has been created successfully!')
+				this.s('Blog has been updated successfully!')
                 // redirect...
                 this.$router.push('/blogs')
 			}else{
@@ -160,14 +161,46 @@ export default {
 		},
 	},
 	async created(){
-		console.log(this.$route.params.id)
-		const [cat, tag] = await Promise.all([
-			this.callApi('get', '/app/get_category'), //경로
+		const id = parseInt(this.$route.params.id)
+        //console.log(id)
+        if(!id){
+            return this.$router.push('/notfound')
+        }
+
+
+		const [blog, cat, tag] = await Promise.all([
+			this.callApi('get', `/app/blog_single/${id}`),
+			this.callApi('get', '/app/get_category'),
 			this.callApi('get', '/app/get_tags'),
 		])
-		if(cat.status==200){
+
+
+		if(blog.status==200){
+            if(!blog.data) return this.$router.push('/notfound')
+			
+			for(let b of blog.data){
+				this.data.title = b.title
+            	this.data.jsonData = b.jsonData
+            	this.data.metaDescription = b.metaDescription
+            	this.data.post_excerpt = b.post_excerpt
+           		this.initData = JSON.parse(b.jsonData)
+					
+				for(let t of b.tag){
+					this.data.tag_id.push(t.id)
+				}
+					for(let c of b.cat){
+					this.data.category_id.push(c.id)
+				}
+			}
+
 			this.category = cat.data
-			this.tag = tag.data
+            this.tag = tag.data
+            
+			/*
+            this.data.title = blog.title
+            this.data.jsonData = blog.jsonData
+            this.data.metaDescription = blog.metaDescription
+            this.data.post_excerpt = blog.post_excerpt*/
 		}else{
 			this.swr()
 		}

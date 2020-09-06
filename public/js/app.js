@@ -4038,6 +4038,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -4201,13 +4203,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 17:
                 _this.isCreating = true;
                 _context.next = 20;
-                return _this.callApi('post', 'app/create-blog', _this.data);
+                return _this.callApi('post', "/app/update-blog/".concat(_this.$route.params.id), _this.data);
 
               case 20:
                 res = _context.sent;
 
                 if (res.status === 200) {
-                  _this.s('Blog has been created successfully!'); // redirect...
+                  _this.s('Blog has been updated successfully!'); // redirect...
 
 
                   _this.$router.push('/blogs');
@@ -4308,31 +4310,104 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this4 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      var _yield$Promise$all, _yield$Promise$all2, cat, tag;
+      var id, _yield$Promise$all, _yield$Promise$all2, blog, cat, tag, _iterator, _step, b, _iterator2, _step2, t, _iterator3, _step3, c;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              console.log(_this4.$route.params.id);
-              _context3.next = 3;
-              return Promise.all([_this4.callApi('get', '/app/get_category'), //경로
-              _this4.callApi('get', '/app/get_tags')]);
+              id = parseInt(_this4.$route.params.id); //console.log(id)
 
-            case 3:
-              _yield$Promise$all = _context3.sent;
-              _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 2);
-              cat = _yield$Promise$all2[0];
-              tag = _yield$Promise$all2[1];
-
-              if (cat.status == 200) {
-                _this4.category = cat.data;
-                _this4.tag = tag.data;
-              } else {
-                _this4.swr();
+              if (id) {
+                _context3.next = 3;
+                break;
               }
 
-            case 8:
+              return _context3.abrupt("return", _this4.$router.push('/notfound'));
+
+            case 3:
+              _context3.next = 5;
+              return Promise.all([_this4.callApi('get', "/app/blog_single/".concat(id)), _this4.callApi('get', '/app/get_category'), _this4.callApi('get', '/app/get_tags')]);
+
+            case 5:
+              _yield$Promise$all = _context3.sent;
+              _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 3);
+              blog = _yield$Promise$all2[0];
+              cat = _yield$Promise$all2[1];
+              tag = _yield$Promise$all2[2];
+
+              if (!(blog.status == 200)) {
+                _context3.next = 19;
+                break;
+              }
+
+              if (blog.data) {
+                _context3.next = 13;
+                break;
+              }
+
+              return _context3.abrupt("return", _this4.$router.push('/notfound'));
+
+            case 13:
+              _iterator = _createForOfIteratorHelper(blog.data);
+
+              try {
+                for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                  b = _step.value;
+                  _this4.data.title = b.title;
+                  _this4.data.jsonData = b.jsonData;
+                  _this4.data.metaDescription = b.metaDescription;
+                  _this4.data.post_excerpt = b.post_excerpt;
+                  _this4.initData = JSON.parse(b.jsonData);
+                  _iterator2 = _createForOfIteratorHelper(b.tag);
+
+                  try {
+                    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                      t = _step2.value;
+
+                      _this4.data.tag_id.push(t.id);
+                    }
+                  } catch (err) {
+                    _iterator2.e(err);
+                  } finally {
+                    _iterator2.f();
+                  }
+
+                  _iterator3 = _createForOfIteratorHelper(b.cat);
+
+                  try {
+                    for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                      c = _step3.value;
+
+                      _this4.data.category_id.push(c.id);
+                    }
+                  } catch (err) {
+                    _iterator3.e(err);
+                  } finally {
+                    _iterator3.f();
+                  }
+                }
+              } catch (err) {
+                _iterator.e(err);
+              } finally {
+                _iterator.f();
+              }
+
+              _this4.category = cat.data;
+              _this4.tag = tag.data;
+              /*
+                       this.data.title = blog.title
+                       this.data.jsonData = blog.jsonData
+                       this.data.metaDescription = blog.metaDescription
+                       this.data.post_excerpt = blog.post_excerpt*/
+
+              _context3.next = 20;
+              break;
+
+            case 19:
+              _this4.swr();
+
+            case 20:
             case "end":
               return _context3.stop();
           }
@@ -72986,7 +73061,7 @@ var render = function() {
               "_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20"
           },
           [
-            _c("p", { staticClass: "_title0" }, [_vm._v("Create blog")]),
+            _c("p", { staticClass: "_title0" }, [_vm._v("Update blog")]),
             _vm._v(" "),
             _c(
               "div",
@@ -73256,6 +73331,48 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "login_header" }, [
       _c("h1", [_vm._v("login to the dashboard")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/pages/notfound.vue?vue&type=template&id=58b021b8&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin/pages/notfound.vue?vue&type=template&id=58b021b8& ***!
+  \************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "content" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20"
+          },
+          [_c("h1", [_vm._v("Not found")])]
+        )
+      ])
     ])
   }
 ]
@@ -73833,7 +73950,7 @@ var render = function() {
                               [
                                 _c(
                                   "router-link",
-                                  { attrs: { to: menuItem.name } },
+                                  { attrs: { to: "/" + menuItem.name } },
                                   [
                                     _c("Icon", {
                                       attrs: { type: "ios-speedometer" }
@@ -91818,6 +91935,59 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/admin/pages/notfound.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/admin/pages/notfound.vue ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _notfound_vue_vue_type_template_id_58b021b8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./notfound.vue?vue&type=template&id=58b021b8& */ "./resources/js/admin/pages/notfound.vue?vue&type=template&id=58b021b8&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _notfound_vue_vue_type_template_id_58b021b8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _notfound_vue_vue_type_template_id_58b021b8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/notfound.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/notfound.vue?vue&type=template&id=58b021b8&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/admin/pages/notfound.vue?vue&type=template&id=58b021b8& ***!
+  \******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_notfound_vue_vue_type_template_id_58b021b8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./notfound.vue?vue&type=template&id=58b021b8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/pages/notfound.vue?vue&type=template&id=58b021b8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_notfound_vue_vue_type_template_id_58b021b8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_notfound_vue_vue_type_template_id_58b021b8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/admin/pages/role.vue":
 /*!*******************************************!*\
   !*** ./resources/js/admin/pages/role.vue ***!
@@ -92599,7 +92769,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _admin_pages_createBlog__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./admin/pages/createBlog */ "./resources/js/admin/pages/createBlog.vue");
 /* harmony import */ var _admin_pages_blogs__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./admin/pages/blogs */ "./resources/js/admin/pages/blogs.vue");
 /* harmony import */ var _admin_pages_editBlog__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./admin/pages/editBlog */ "./resources/js/admin/pages/editBlog.vue");
-/* harmony import */ var _vuex_usecom__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./vuex/usecom */ "./resources/js/vuex/usecom.vue");
+/* harmony import */ var _admin_pages_notfound__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./admin/pages/notfound */ "./resources/js/admin/pages/notfound.vue");
+/* harmony import */ var _vuex_usecom__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./vuex/usecom */ "./resources/js/vuex/usecom.vue");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -92619,10 +92790,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 
 
 
+
 var routes = [//projects routes...
 {
   path: '/testvuex',
-  component: _vuex_usecom__WEBPACK_IMPORTED_MODULE_16__["default"]
+  component: _vuex_usecom__WEBPACK_IMPORTED_MODULE_17__["default"]
 }, {
   path: '/',
   component: _components_pages_basic_home__WEBPACK_IMPORTED_MODULE_6__["default"],
@@ -92675,9 +92847,13 @@ var routes = [//projects routes...
   component: _admin_pages_blogs__WEBPACK_IMPORTED_MODULE_14__["default"],
   name: 'blogs'
 }, {
-  path: "/editblog/:id",
+  path: "/editBlog/:id",
   component: _admin_pages_editBlog__WEBPACK_IMPORTED_MODULE_15__["default"],
   name: 'editBlog'
+}, {
+  path: "*",
+  component: _admin_pages_notfound__WEBPACK_IMPORTED_MODULE_16__["default"],
+  name: 'notfound'
 }];
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
@@ -93008,8 +93184,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/spa/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/spa/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/SPA-Project/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/SPA-Project/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
