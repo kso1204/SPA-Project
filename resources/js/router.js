@@ -16,6 +16,8 @@ import login from './admin/pages/login'
 import role from './admin/pages/role' 
 import assignRole from './admin/pages/assignRole' 
 import createBlog from './admin/pages/createBlog'
+import blogs from './admin/pages/blogs'
+import editBlog from './admin/pages/editBlog'
 
 
 import usecom from './vuex/usecom'
@@ -101,6 +103,18 @@ const routes = [
         component: createBlog,
         name: 'createBlog'
 
+    },
+
+    {
+        path: '/blogs',
+        component: blogs,
+        name: 'blogs'
+
+    },
+    {
+        path: "/editblog/:id",
+        component: editBlog,
+        name: 'editBlog'
     },
 
 ]

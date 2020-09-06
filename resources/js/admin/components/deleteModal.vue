@@ -11,8 +11,7 @@
                 <span>Delete confirmation</span>
             </p>
             <div style="text-align:center">
-                <p>After this task is deleted, the downstream 10 tasks will not be implemented.</p>
-                <p>Will you delete it?</p>
+                <p>{{getDeleteModalObj.msg}}</p>
             </div>
             <div slot="footer">
                 <Button type="default"     @click="closeModal">close</Button>
@@ -49,7 +48,7 @@
                     //i번째의 데이터를 1개 삭제한다
                     //그래서 반응형으로 바로 보여줌
                     //삭제된 데이터를 바로 보여줄 때
-                    this.s('Tag has been delete succesfully!')
+                    this.s(this.getDeleteModalObj.successMsg)
                     this.$store.commit('setDeleteModal', true)
                 }else{
                     this.swr()

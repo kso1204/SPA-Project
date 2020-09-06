@@ -50,6 +50,8 @@ Route::prefix('app')->group(function(){
 
 
     Route::post('create-blog', 'AdminController@createBlog');
+    Route::get('blogsdata', 'AdminController@blogdata');
+    Route::post('/delete_blog', 'AdminController@deleteBlog');
 
 });
 

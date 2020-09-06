@@ -416,4 +416,17 @@ class AdminController extends Controller
             return 'not done';
         }
     }
+
+    public function blogdata()
+    {
+        return Blog::with(['tag','cat'])->orderBy('id','desc')->get();
+    }
+
+    public function deleteBlog(Request $request)
+    {
+        return Blog::where('id', $request->id)->delete();
+    }
+
+
+
 }
