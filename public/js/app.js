@@ -2836,13 +2836,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         "delete": false,
         name: 'assignRole'
       }, {
-        resourceName: 'home',
-        read: false,
-        write: false,
-        update: false,
-        "delete": false,
-        name: '/'
-      }, {
         resourceName: 'createBlog',
         read: false,
         write: false,
@@ -2892,13 +2885,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         update: false,
         "delete": false,
         name: 'assignRole'
-      }, {
-        resourceName: 'home',
-        read: false,
-        write: false,
-        update: false,
-        "delete": false,
-        name: '/'
       }, {
         resourceName: 'createBlog',
         read: false,
@@ -3041,7 +3027,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -72345,19 +72330,6 @@ var render = function() {
                             _c(
                               "td",
                               [
-                                _c(
-                                  "Button",
-                                  {
-                                    attrs: { type: "info", size: "small" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.showEditModal(blog)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Visit Blog")]
-                                ),
-                                _vm._v(" "),
                                 _c(
                                   "Button",
                                   {

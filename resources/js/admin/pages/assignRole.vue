@@ -120,15 +120,6 @@ import {mapGetters} from 'vuex'
                 },
 
 
-                {
-                    resourceName : 'home',
-                    read: false,
-                    write: false,
-                    update: false,
-                    delete: false,
-                    name: '/',
-                },
-
 
                 {
                     resourceName : 'createBlog',
@@ -195,16 +186,6 @@ import {mapGetters} from 'vuex'
                     update: false,
                     delete: false,
                     name: 'assignRole',
-                },
-
-
-                {
-                    resourceName : 'home',
-                    read: false,
-                    write: false,
-                    update: false,
-                    delete: false,
-                    name: '/',
                 },
 
 

@@ -29,7 +29,6 @@
 								<td ><span v-for="(t,j) in blog.tag" :key="j" v-if="blog.tag.length" ><Tag type="border">{{t.tagName}}</Tag></span></td>
 								<td >{{blog.views}}</td>
 								<td>
-									<Button type="info" size="small" @click="showEditModal(blog)">Visit Blog</Button>
 									<Button type="info" size="small" @click="$router.push(`/editBlog/${blog.id}`)">Edit</Button>
     								<Button type="error" size="small" @click="showDeleteModal(blog, i)" :loading="blog.isDeleting">Delete</Button>
 								</td>
